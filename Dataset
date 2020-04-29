@@ -1,0 +1,53 @@
+This is a temporary script file.
+"""
+
+import pandas as pd 
+import numpy as np
+import seaborn as sns
+import string
+""" Read csv file """
+
+df = pd.read_csv('yelp_academic_dataset_review.csv')
+df.describe()
+df.info()
+sns.pairplot(df)
+sns.distplot(df["stars"])
+"""How Many People Gave 5 Star Ratings"""
+df["stars"].value_counts()
+"""Conclusion: Maximum People Gave 4 Start Ratings"""
+
+"""Ratings vs Year"""
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('yelp_academic_dataset_review.csv')
+df["date"]= pd.to_datetime(df["date"]).dt.date
+df.set_index('date').head(1)
+df["Year"] = pd.to_datetime(df["date"]).dt.year
+sns.barplot(x=df["Year"], y=df["stars"], data=df)
+plt.title("Ratings vs Year ")
+
+"""Ratings vs month"""
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('yelp_academic_dataset_review.csv')
+df["date"]= pd.to_datetime(df["date"]).dt.date
+df.set_index('date').head(1)
+df["month"] = pd.to_datetime(df["date"]).dt.month
+sns.barplot(x=df["month"], y=df["stars"], data=df)
+plt.title("Ratings vs month ")
+
+
+"""It Looks like votes cool that the Rating is decreasing"""
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('yelp_academic_dataset_review.csv')
+df["date"]= pd.to_datetime(df["date"]).dt.date
+df.set_index('date').head(1)
+
+df["month"] = pd.to_datetime(df["date"]).dt.month
+df["Year"] = pd.to_datetime(df["date"]).dt.year
+
+df["votes.cool"]  
+sns.jointplot(x=df["votes.cool"],
+              y=df["stars"],
+              data=df, kind='reg')
